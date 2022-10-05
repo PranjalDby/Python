@@ -1,4 +1,4 @@
-# product combination ,permutation,accumalte,groupby and infinite
+# product combination ,permutation,accumalte,groupby and infinite and this are iteratble tools
 from itertools import count,cycle,repeat
 
 
@@ -20,6 +20,5 @@ a = [1,2,3,4]
 # print(list(comb))
 
 # lambda functions
-
 for i in repeat(1,9):
     print(i)
