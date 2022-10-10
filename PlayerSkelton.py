@@ -1,10 +1,9 @@
-from logging import root
 import tkinter
 from tkinter import *
-from tkinter import filedialog
+from tkinter import Tk
 from tkinter import dialog
 from tkinter import ttk
-from turtle import title
+from tkinter import filedialog
 from pygame import mixer
 class player:
     isloaded = True
@@ -23,16 +22,22 @@ class player:
         Stop.place(x = 0, y = 40)
         Pause.place(x = 90,y =40)
         self.music_file = False
+        self.music_f = ""
         self.playing = False
+
     def load(self):
         self.music_file = filedialog.askopenfile()
+        self.music_f = str(self.music_file)
+        # print(self.music_file)
     def play(self):
         try:
             mixer.init()
             mixer.music.load(self.music_file)
             mixer.music.play()
         except :
-            tkinter.Tk.geometry(self.window)
+            Tk.geometry(self.window)
+    def getfile(self):
+        return self.music_f
     def stop(self):
        if not self.playing:
         mixer.music.stop()

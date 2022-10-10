@@ -1,10 +1,9 @@
-from tkinter import ttk
-from tokenize import Double
-from PlayerSkelton import *
-from tkinter import *
+from tkinter import Message
+from PlayerSkelton import player
+from tkinter import Tk
 print("THIS PLAYER IS SIMPLE AND EASY TO USE")
 root =Tk()
-message = Message(root,foreground='red',text="HELLO WELCOME TO MY SIMPLE MUSIC PLAYER")
-message.pack()
 play = player(root)
+message = Message(root,foreground='red',text=f'FORGED IN LIFE POWER ')
+message.pack()
 root.mainloop()
