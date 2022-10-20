@@ -32,6 +32,7 @@ def main():
     dp.add_handler(CommandHandler("help",help_cmd))
     dp.add_handler(MessageHandler(Filters.text,handle_message))
     updater.idle()
+    
 
 main()
 
