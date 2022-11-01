@@ -1,19 +1,19 @@
 import telebot 
-from  telebot import TeleBot
-import const
+import API_KEY
 import time 
 
-KEY = const.API_KEY
-bot = telebot.TeleBot(KEY)
+KEY = API_KEY.API_KEY
+print(KEY)
+bot = telebot.TeleBot(KEY,parse_mode = None)
+# def message_handler(command):
+#     def handle(*args,**kwargs):
+#         res = ""
+#         if(command[0] == '/start'):
+#             res = 'Started'
+#         return res
+#     return handle
 
-@bot.route('/command ?(.*)')
+def sendmessage():
+    bot.send_photo('@iamkingworld','bts.png','Hello  Bts')
+bot.infinity_polling()
 
-def example(message,cmd):
-    chat_dest = message[0][0]
-    user_msg = message[0]
-    msg = "Pranjal Says :{}".format(user_msg)
-    bot.send_message(chat_dest,msg)
-
-example('Hello','/he')
-bot.config['KEY'] = KEY
-bot.poll(True)

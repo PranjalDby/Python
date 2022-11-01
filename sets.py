@@ -8,7 +8,7 @@ primes = {2,3,5,7}
 setA = {1,2,3,4,5,6}
 setB = {1,2,3}
 u = myset.union(evens)
-print(u)
+print(type(myset))
 # sets method
 i = myset.intersection(primes)
 diff = myset.difference(primes)
@@ -23,4 +23,4 @@ print(set3)
 print(setA)
 # Frozen Sets ar immutable
 
-a = FrozenSet([1,2,3,45])
+# a = FrozenSet([1,2,3,45])

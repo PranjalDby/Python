@@ -2,7 +2,7 @@ from turtle import update
 from urllib import response
 
 from telegram import InlineQuery, InlineQueryResult, InlineQueryResultCachedGif, User
-import const as key
+import API_KEY as key
 from telegram.ext import *
 import response as R
 print("Bot Started....")
