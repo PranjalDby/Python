@@ -2,18 +2,19 @@ from operator import le
 from pydoc import cli
 from time import sleep, time
 from tqdm import tqdm
+import ppadb
 from ppadb.client import Client as Adbclient
 client = Adbclient(host="127.0.0.1",port=5037)
 try:
     device = client.devices()
-    print("No of Devices:",len(device))
+    print("No of Devices Connected :",len(device))
     print("Device Name is : ",client.BOOTLOADER)
     if(len(device)!=0):
         for i in tqdm(range(100),desc="Loading.."):
             sleep(0.01)
         dev = device[0]
         opt = 0
-        while opt != -1:
+        while opt != -1 and len(device)!=0:
             print('''
                 3: home button
                 4: back button
@@ -51,7 +52,7 @@ try:
                 dev.shell(f'input keyevent {opt}')
                 
     else:
-        print("No devices")
+        print("No devices Connected.")
         quit()
 except RuntimeError as e:
-    print("Please Install Platform tools and Start Adb Server - Then Try Again")
+    print("Please Install Platform tools and Start Adb Server - Then Try Again.")

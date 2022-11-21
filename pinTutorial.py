@@ -1,9 +1,8 @@
 
 from time import sleep
-from winsound import Beep
 from tqdm import tqdm
-import Databases;
-
+import Databases
+import Game1
 opt = int(input('1.for Delete or New Pin 2.for Sign_In 3.For exit '))
 while(opt!=3):
     if(opt==1):
@@ -23,8 +22,7 @@ while(opt!=3):
                 sleep(0.01)
         if Databases.checkpin(pinEnter):
                 print('Correct.')
-                Beep(500,1000)
-                break;
+                Game1.start()
         else:
                 print('Wrong Pin.')
     else:
