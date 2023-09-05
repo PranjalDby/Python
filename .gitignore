@@ -1,0 +1,15 @@
+token.json
+python-course/calc.py
+python-course/test_calc.py
+python-course/test_employee.py  
+.gitignore
+.vscode/settings.json
+
+python-course/Employee_Unit.py
+python-course/__pycache__/Employee_Unit.cpython-311.pyc
+python-course/__pycache__/calc.cpython-311.pyc
+python-course/__pycache__/python1.cpython-311-pytest-7.4.0.pyc
+python-course/__pycache__/python1.cpython-311.pyc
+python-course/__pycache__/test_calc.cpython-311-pytest-7.4.0.pyc
+python-course/__pycache__/test_calc.cpython-311.pyc
+python-course/__pycache__/test_employee.cpython-311-pytest-7.4.0.pyc
