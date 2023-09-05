@@ -11,7 +11,7 @@ async def main():
     await asyncio.sleep(11)
     print("Hello Worldf")
 
-async def foo(txt):
+async def foo( txt ):
     print(txt)
     await asyncio.sleep(10)
     print("Welcome Back")
@@ -32,10 +32,12 @@ async def fetch_data():
     if task.done():
         print("Data We Get From Fetching is = ",task.result())
 
+
+
+progress = 0
 async def show_progress(progress):
-    for i in tqdm.tqdm(range(100),mininterval=0.2):
-        await asyncio.sleep(2)
-        pass
+    print(f"{progress} % Downloaded")
+    await asyncio.sleep(0.2)
 
 async def download_all(url,size):
     print("Start Downloading ...")
@@ -46,12 +48,16 @@ async def download_all(url,size):
 
 async def util(file_name,response,type,size):
     print("Content-size  = ",size)
+    global progress
     try:
         with open(f"{file_name}{type}",'wb') as file:
-            for i in response.iter_content(chunk_size= 400 * 1024):
+            for i in response.iter_content(chunk_size= 324 * 1024):
                 file.write(i)
-                ask = asyncio.create_task(show_progress(progress=i))
-                await asyncio.sleep(1)
+
+                if progress != 100:
+                    await asyncio.create_task(show_progress(progress))
+                    await asyncio.sleep(2)
+                    progress  += 10
                 path = os.path.abspath(file.name)
     except TypeError as e:
             print("Invalid Type")
@@ -74,13 +80,13 @@ async def download_helper(url,file_name,size):
         pass
 
     elif(response.headers.get('Content-Type')=='audio/mp4'):
-        pass
+        await util(file_name,response,'.mp3',size=size)
 
     elif(response.headers.get('Content-Type') == 'application/octet-stream'):
        await util(file_name,response,'.exe',size=size)
 
     return path
 
-asyncio.run(download_all(["https://az764295.vo.msecnd.net/stable/6c3e3dba23e8fadc360aed75ce363ba185c49794/VSCodeUserSetup-x64-1.81.1.exe"],0))
+asyncio.run(download_all(["https://aac.saavncdn.com/438/93962c985186eb21ffe42ccada83db78_160.mp4"],0))
 
 
