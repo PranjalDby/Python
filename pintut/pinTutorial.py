@@ -1,7 +1,7 @@
 
 from time import sleep
 from tqdm import tqdm
-import Databases
+import pintut.Databases as Databases
 import Game1
 opt = int(input('1.for Delete or New Pin 2.for Sign_In 3.For exit '))
 while(opt!=3):
