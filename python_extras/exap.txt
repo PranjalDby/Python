@@ -1,0 +1,8 @@
+
+Note: The scope of the num_length and num_sum variables is 
+the same in the example with the walrus operator and in the example without. 
+This means that in both examples, the variables are available after the definition of description.
+
+Even though both examples are very similar functionally, 
+a benefit of using the assignment expressions is that the := operator communicates 
+the intent of these variables as throwaway optimizations.

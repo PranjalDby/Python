@@ -117,7 +117,7 @@ async def return_guessed_mime_type(file_name):
 
     return [mtype,sub]
 
-part2 = """\n
+part2 = f"""\n
 <html>
   <body>
   <div>
@@ -135,6 +135,7 @@ part2 = """\n
       Venue: Moscone Center, 800 Howard St., San Francisco, CA 94103<br/>
       Reservation number: IO12345<br/>
     </p>
+
   </body>
 </html>
         """
@@ -163,7 +164,7 @@ async def create_body(body,destination,subject):
         message['To'] = destination
         message['From'] = 'pranjalorg11@gmail.com'
         message['Subject'] = subject
-        message.attach(MIMEText(part2,'html'))
+        message.attach(MIMEText(body))
     
     return {
          'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()
