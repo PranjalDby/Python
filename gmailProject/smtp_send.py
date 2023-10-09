@@ -1,7 +1,9 @@
 from __future__ import print_function
+from datetime import date
 from email import encoders
 import json
 import os.path
+import time
 import requests
 import base64
 import google.auth
@@ -30,8 +32,8 @@ choose_secret = askopenfilename()
 def gmail_auth():
     global service
     creds = None
-    if os.path.exists('token1.json'):
-        creds = Credentials.from_authorized_user_file('token1.json',SCOPES)
+    if os.path.exists('@hhsh22ss.json'):
+        creds = Credentials.from_authorized_user_file('@hhsh22ss.json',SCOPES)
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(request=Request())
@@ -74,8 +76,24 @@ async def add_attachment(message,filename):
         print("File selected = ",filename)
         t1 = asyncio.create_task(file_attach_helper(message,filename))
         await asyncio.sleep(1)
+    else:
+        t2 = asyncio.create_task(file_attach_helper(message,filename))
+        await asyncio.sleep(1.34)
+
 
 async def file_attach_helper(message,filename):
+
+    if type(filename) != type(list):
+        task  = asyncio.create_task(message_attach_multiple(filename,message))
+        await asyncio.sleep(0.982)
+    else:
+        for files in filename:
+            task  = asyncio.create_task(message_attach_multiple(files,message))
+            await asyncio.sleep(0.982)
+    
+    return
+
+async def message_attach_multiple(filename,message):
     ext_file = {}
     extension_list = []
     count = -1
@@ -89,16 +107,13 @@ async def file_attach_helper(message,filename):
         print(f'''
                 selected file is: ==========
                 maint type ={mt_} sub = {sub}
-            ''')
-        
+                ''')
         with open(filename,"rb") as fp:
             part = MIMEBase(mt_,sub)
             part.set_payload(fp.read())
             part.add_header('Content-Disposition',"attachments; filename= %s" % os.path.basename(filename))
             encoders.encode_base64(part)
             message.attach(part)
-
-
     
 async def return_guessed_mime_type(file_name):
     _mtype,sub = guess_mime_type(file_name,False)
@@ -117,28 +132,6 @@ async def return_guessed_mime_type(file_name):
 
     return [mtype,sub]
 
-part2 = f"""\n
-<html>
-  <body>
-  <div>
-  <img src = 'https://e0.pxfuel.com/wallpapers/592/288/desktop-wallpaper-vibe-alone-anime-scenery-cool-anime-anime-scenery-anime-boys-thumbnail.jpg' width= 300 height = 150 >
-  </div>
-  <p>
-      Dear John, thanks for booking your Google I/O ticket with us.
-    </p>
-    <img src="https://wallpapers.com/images/high/4098x2304-anime-universe-image-anime-characters-hd-wallpaper-and-background-6q0wwu9gf52hvl9h.webp"/>
-    <p>
-      BOOKING DETAILS<br/>
-      Order for: John Smith<br/>
-      Event: Google I/O 2013<br/>
-      When: May 15th 2013 8:30am PST<br/>
-      Venue: Moscone Center, 800 Howard St., San Francisco, CA 94103<br/>
-      Reservation number: IO12345<br/>
-    </p>
-
-  </body>
-</html>
-        """
 async def create_body(body,destination,subject):
     attachment = str(input('Do you Want to Add Attachemnt: yes or no: ').lower())
     message = None
@@ -148,23 +141,24 @@ async def create_body(body,destination,subject):
         message['To'] = destination
         message['From'] = 'pranjalorg11@gmail.com'
         message['Subject'] = subject
-        message.attach(MIMEText(part2 , 'html'))
-        if int(input("want to select multiple files: 1 - YES")) == 1:
+        if int(input("want to select multiple files: 1 - YES: ")) == 1:
             files = askopenfiles('r')
             str1 = []
             for i in files:
                 str1.append(i.name)
-
             for i in str1:
                 task  = asyncio.create_task(add_attachment(message,str(i)))
-                await asyncio.sleep(0.7)
+                await asyncio.sleep(2)
+
+        else:
+            files  = askopenfilename()
 
     elif attachment == 'no':
         message = MIMEMultipart()
         message['To'] = destination
         message['From'] = 'pranjalorg11@gmail.com'
         message['Subject'] = subject
-        message.attach(MIMEText(body))
+        message.attach(body)
     
     return {
          'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()
@@ -174,7 +168,6 @@ async def create_body(body,destination,subject):
 async def send_email(des=None):
     if des == None:
         des = str(input('Enter the Destination: '))
-    
     print("Message To :{}".format(des))
     mess = str(input('Enter the message: '))
     sub =str(input('Enter the Subject: '))
@@ -191,7 +184,7 @@ async def send_email(des=None):
     else:
         raise HttpError
     
-email_liss = []
+email_liss = ["dpranjal.088@gmail.com","pranjalkdubey@outlook.com"]
 def send_to_multiple():
     global email_liss
     files = askopenfilename()
@@ -208,11 +201,13 @@ async def main():
         '''))
         print(opt1)
         if opt1 == 1:
-            send_to_multiple()
             if email_liss is not None:
                 for i in email_liss:
-                    await send_email(des=i)
-
+                    task1 = asyncio.create_task(send_email(i))
+                    await asyncio.sleep(0.88)
+                
+                print("😊 send Successfully....................")
+            return
         else:
             await send_email()
     except HttpError as e:
