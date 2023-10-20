@@ -132,7 +132,7 @@ async def return_guessed_mime_type(file_name):
 
     return [mtype,sub]
 
-async def create_body(body,destination,subject):
+async def create_body(message_entry,destination,subject):
     attachment = str(input('Do you Want to Add Attachemnt: yes or no: ').lower())
     message = None
     if(attachment == 'yes'):
@@ -154,11 +154,10 @@ async def create_body(body,destination,subject):
             files  = askopenfilename()
 
     elif attachment == 'no':
-        message = MIMEMultipart()
+        message = MIMEText(message_entry)
         message['To'] = destination
         message['From'] = 'pranjalorg11@gmail.com'
         message['Subject'] = subject
-        message.attach(body)
     
     return {
          'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()

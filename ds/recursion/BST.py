@@ -24,6 +24,19 @@ def display_nodes(root):
     print(root.data)
     display_nodes(root.right)
 
+def print_all_leaf_node(root):
+    if root == None:
+        return
+    
+    if root.left == None and root.right == None:
+        print(root.data)
+        return
+    
+    if root.left != None:
+        print_all_leaf_node(root.left)
+
+    if root.right != None:
+        print_all_leaf_node(root.right)
 
 root = None
 root = add_Node(root,100)
@@ -39,4 +52,6 @@ add_Node(root,85)
 add_Node(root,95)
 add_Node(root,115)
 add_Node(root,150)
-display_nodes(root)
+# display_nodes(root)
+print(print_all_leaf_node(root))
+print("Hello World")
